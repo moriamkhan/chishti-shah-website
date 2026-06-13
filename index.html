@@ -119,6 +119,7 @@
   /* ─── PARTNERS ─── */
   #partners { background: var(--light); }
   .partners-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; }
+  .partner-carousel-controls { display: none; }
   .partner-card { background: var(--white); padding: 48px; border-bottom: 3px solid var(--navy); display: flex; flex-direction: column; }
   .partner-bio-wrap { flex: 1; }
   .partner-photo-block { width: 80px; height: 80px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; }
@@ -319,10 +320,26 @@
     .firm-image-block { order: -1; }
     .firm-image-placeholder { aspect-ratio: 16/10; }
 
-    /* PARTNERS */
-    .partners-grid { grid-template-columns: 1fr; gap: 32px; }
-    .partner-card { padding: 28px; }
+    /* PARTNERS CAROUSEL */
+    .partners-grid {
+      display: flex; flex-wrap: nowrap; gap: 0; margin-top: 40px;
+      overflow: hidden; transition: transform 0.35s ease;
+    }
+    .partner-card { flex: 0 0 100%; max-height: 580px; overflow-y: auto; padding: 28px; }
     .partner-name { font-size: 24px; }
+    .partner-carousel-controls {
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      margin-top: 24px;
+    }
+    .carousel-arrow {
+      width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--navy);
+      background: var(--white); color: var(--navy); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+    }
+    .carousel-arrow:active { background: var(--navy); color: var(--white); }
+    .carousel-dots { display: flex; gap: 10px; }
+    .carousel-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s; }
+    .carousel-dot.active { background: var(--navy); }
 
     /* USP */
     #usp .inner { grid-template-columns: 1fr; gap: 32px; }
@@ -332,7 +349,7 @@
     /* TRUSTED BY */
     #trusted .inner { flex-direction: column; align-items: flex-start; gap: 32px; }
     .trusted-divider { display: none; }
-    .trusted-logos { width: 100%; justify-content: space-between; gap: 24px; row-gap: 28px; }
+    .trusted-logos { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; gap: 28px 16px; justify-content: unset; flex-wrap: unset; }
     .trusted-logo-item img { height: 32px; }
     .trusted-logo-item span { font-size: 9px; }
 
@@ -509,16 +526,15 @@
     <div class="section-label fade-up">Leadership</div>
     <h2 class="section-title fade-up">The Partners</h2>
     <p class="section-intro fade-up">Two Advocates High Court with complementary expertise across white-collar defence, corporate governance, and public sector law.</p>
-    <div class="partners-grid">
+    <div class="partners-grid" id="partnersGrid">
 
-      <div class="partner-card fade-up">
+      <div class="partner-card fade-up" data-partner="0">
         <div class="partner-photo-block"><span class="partner-initials">HES</span></div>
         <div class="partner-title">Founding Partner</div>
         <div class="partner-name">Hassan Ejaz Shah</div>
         <div class="partner-role">Advocate High Court &nbsp;·&nbsp; LL.B (Hons), University of London</div>
         <div class="partner-bio-wrap">
-        <p class="partner-bio">Hassan is an Advocate with seven years of post-qualification experience and a broad-based practice spanning civil and criminal advocacy, intellectual property, and corporate commercial law. He currently serves as Visiting Faculty at the University of Lahore (UOL), as Officer in the Law Department of Punjab Education Foundation, and as Legal Advisor to several public and private institutions. His career includes a period at Nexus Law Chamber handling writ petitions, copyright matters, and penal offences, as well as experience at Barrister Umar Riaz Law Associates handling IP and environmental matters and serving as in-house counsel for Raaziq International Pvt Ltd. He also previously served as a Teaching Assistant for Public International Law at University College Lahore.</p>
-        <p class="partner-bio">Hassan handles cases before the Pakistan Customs Office and the Tourism Development Corporation of Punjab (TDCP), and is regularly engaged with private clients and companies on commercial transactions and property dispute matters. He is proficient in drafting complex commercial agreements, conducting legal research using both physical and virtual libraries, and communicates fluently in English, Urdu, and Punjabi.</p>
+        <p class="partner-bio">Hassan is an Advocate with seven years of post-qualification experience across civil and criminal advocacy, intellectual property, and corporate commercial law. He currently serves as Visiting Faculty at the University of Lahore (UOL) and as Legal Advisor to several public and private institutions, including handling matters before the Pakistan Customs Office and the Tourism Development Corporation of Punjab (TDCP). He is proficient in drafting complex commercial agreements and communicates fluently in English, Urdu, and Punjabi.</p>
         <div class="partner-tags">
           <span class="tag">Intellectual Property</span>
           <span class="tag">Civil & Criminal Advocacy</span>
@@ -542,13 +558,12 @@
         </div>
       </div>
 
-      <div class="partner-card fade-up">
-        <div class="partner-photo-block"><span class="partner-initials">MMC</span></div>
+      <div class="partner-card fade-up" data-partner="1">
         <div class="partner-title">Founding Partner</div>
         <div class="partner-name">Mohsin Munir Chishti</div>
         <div class="partner-role">Advocate High Court &nbsp;·&nbsp; LL.M, BPP Law School London &nbsp;·&nbsp; LL.B (Hons), University of London</div>
         <div class="partner-bio-wrap">
-        <p class="partner-bio">Mohsin is an Advocate with extensive experience in corporate legal management and high-stakes white-collar defence. He is an expert in designing litigation frameworks for asset recovery and regulatory compliance across the banking, energy, and government sectors. Before founding the firm, he served as Legal Associate at the chambers of Azam Nazir Tarrar & Associates — working on high-profile NAB and Anti-Corruption matters — and at Muhammad Amjad Pervaiz & Associates, where he was involved in landmark cases including State v. Mian Muhammad Shahbaz Sharif and State v. Mir Shakil-Ur-Rehman.</p>
+        <p class="partner-bio">Mohsin is an Advocate with extensive experience in corporate legal management and high-stakes white-collar defence. He is an expert in designing litigation frameworks for asset recovery and regulatory compliance across the banking, energy, and government sectors. Before founding the firm, he was a Legal Associate at Azam Nazir Tarrar & Associates and Muhammad Amjad Pervaiz & Associates, working on high-profile NAB and Anti-Corruption matters including State v. Mian Muhammad Shahbaz Sharif and State v. Mir Shakil-Ur-Rehman.</p>
         <div class="partner-tags">
           <span class="tag">White-Collar Crime</span>
           <span class="tag">Corporate Governance</span>
@@ -569,10 +584,17 @@
         </div>
       </div>
     </div>
+
+    <div class="partner-carousel-controls">
+      <button class="carousel-arrow" id="partnerPrev" aria-label="Previous partner">←</button>
+      <div class="carousel-dots">
+        <span class="carousel-dot active" data-idx="0"></span>
+        <span class="carousel-dot" data-idx="1"></span>
+      </div>
+      <button class="carousel-arrow" id="partnerNext" aria-label="Next partner">→</button>
+    </div>
   </div>
 </div>
-
-<!-- USP / WHY CHOOSE US -->
 <div id="usp">
   <div class="inner">
     <div class="fade-up">
@@ -1011,6 +1033,34 @@
 </footer>
 
 <script>
+// Partner carousel (mobile only)
+const partnersGrid = document.getElementById('partnersGrid');
+const partnerPrev = document.getElementById('partnerPrev');
+const partnerNext = document.getElementById('partnerNext');
+const carouselDots = document.querySelectorAll('.carousel-dot');
+let partnerIdx = 0;
+
+function updatePartnerCarousel() {
+  partnersGrid.style.transform = `translateX(-${partnerIdx * 100}%)`;
+  carouselDots.forEach((d, i) => d.classList.toggle('active', i === partnerIdx));
+}
+if (partnerPrev && partnerNext) {
+  partnerPrev.addEventListener('click', () => {
+    partnerIdx = (partnerIdx - 1 + 2) % 2;
+    updatePartnerCarousel();
+  });
+  partnerNext.addEventListener('click', () => {
+    partnerIdx = (partnerIdx + 1) % 2;
+    updatePartnerCarousel();
+  });
+  carouselDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      partnerIdx = parseInt(dot.dataset.idx);
+      updatePartnerCarousel();
+    });
+  });
+}
+
 // Mobile menu toggle
 const navBurger = document.getElementById('navBurger');
 const mobileMenu = document.getElementById('mobileMenu');
